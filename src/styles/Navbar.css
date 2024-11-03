@@ -1,0 +1,14 @@
+/* src/styles/navbar.css */
+
+.navbar {
+  @apply bg-blue-600 p-4 sticky top-0 z-50;
+}
+
+.navbar-menu {
+  @apply flex justify-center items-center space-x-16 ;
+
+}
+
+.navbar-link {
+  @apply text-white hover:text-gray-300;
+}

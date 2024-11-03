@@ -1,0 +1,41 @@
+.room-card {
+    border: 2px solid #ccc;
+    padding: 20px;
+    background-color: #f9f9f9;
+    width: 300px;
+    margin: 20px auto;
+    text-align: center;
+    transition: border-color 0.3s ease;
+  }
+  
+  .room-card.occupied {
+    border-color: red;
+  }
+  
+  .room-card.available {
+    border-color: green;
+  }
+  
+  .room-card h4 {
+    font-size: 24px;
+    margin-bottom: 10px;
+  }
+  
+  .room-card p {
+    font-size: 18px;
+  }
+  
+  .room-card button {
+    padding: 10px 20px;
+    margin-top: 15px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .room-card button:hover {
+    background-color: #0056b3;
+  }
+  

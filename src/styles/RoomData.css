@@ -1,0 +1,235 @@
+/* RoomData.css */
+.room-data-container {
+    min-height: 100vh;
+    padding: 80px 20px 20px;
+    background-color: #f5f5f5;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+}
+
+.room-data-card {
+    background: white;
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 600px;
+    position: relative;
+}
+
+.back-button {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    padding: 8px 16px;
+    background: none;
+    border: none;
+    color: #666;
+    cursor: pointer;
+    font-size: 14px;
+}
+
+.back-button:hover {
+    color: #333;
+}
+
+h2 {
+    text-align: center;
+    font-size: 24px;
+    margin-bottom: 20px;
+    color: #333;
+}
+
+.status-badge {
+    display: inline-block;
+    padding: 6px 12px;
+    border-radius: 20px;
+    font-size: 14px;
+    font-weight: 500;
+    text-align: center;
+    margin: 0 auto 20px;
+    width: fit-content;
+}
+
+.status-badge[data-status="available"] {
+    background-color: #e8f5e9;
+    color: #2e7d32;
+}
+
+.status-badge[data-status="occupied"] {
+    background-color: #ffebee;
+    color: #c62828;
+}
+
+.room-details {
+    margin: 30px 0;
+}
+
+.detail-group {
+    margin-bottom: 20px;
+}
+
+.detail-group label {
+    display: block;
+    font-size: 14px;
+    color: #666;
+    margin-bottom: 5px;
+}
+
+.detail-group span {
+    display: block;
+    font-size: 16px;
+    color: #333;
+    font-weight: 500;
+}
+
+.empty-message {
+    text-align: center;
+    color: #666;
+    font-style: italic;
+    padding: 20px;
+}
+
+.action-buttons {
+    margin-top: 30px;
+    text-align: center;
+}
+
+.allocate-button,
+.deallocate-button {
+    padding: 12px 24px;
+    border: none;
+    border-radius: 6px;
+    font-size: 16px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.allocate-button {
+    background-color: #4caf50;
+    color: white;
+}
+
+.allocate-button:hover {
+    background-color: #43a047;
+}
+
+.deallocate-button {
+    background-color: #f44336;
+    color: white;
+}
+
+.deallocate-button:hover {
+    background-color: #e53935;
+}
+
+.loading,
+.error {
+    text-align: center;
+    padding: 40px;
+    font-size: 18px;
+    color: #666;
+}
+
+.error {
+    color: #c62828;
+}
+
+/* Add these new styles for the allocation form */
+.allocation-form {
+  margin: 20px 0;
+}
+
+.form-group {
+  margin-bottom: 15px;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 5px;
+  color: #666;
+}
+
+.form-group input {
+  width: 100%;
+  padding: 8px 12px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  font-size: 16px;
+}
+
+.form-group input:focus {
+  border-color: #4caf50;
+  outline: none;
+}
+
+.form-buttons {
+  display: flex;
+  gap: 10px;
+  justify-content: flex-end;
+  margin-top: 20px;
+}
+
+.cancel-button {
+  padding: 8px 16px;
+  background-color: #f5f5f5;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.submit-button {
+  padding: 8px 16px;
+  background-color: #4caf50;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.submit-button:disabled {
+  background-color: #cccccc;
+  cursor: not-allowed;
+}
+
+/* Add these new styles for the deallocation confirmation */
+.confirmation-dialog {
+  margin: 20px 0;
+  padding: 20px;
+  background-color: #fff3e0;
+  border-radius: 8px;
+  border: 1px solid #ffe0b2;
+}
+
+.confirmation-dialog p {
+  margin: 0 0 15px 0;
+  color: #e65100;
+  text-align: center;
+}
+
+.confirmation-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+}
+
+.confirm-button {
+  padding: 8px 16px;
+  background-color: #f44336;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.confirm-button:disabled {
+  background-color: #ffcdd2;
+  cursor: not-allowed;
+}
+
+.deallocate-button:disabled {
+  background-color: #ffcdd2;
+  cursor: not-allowed;
+}
