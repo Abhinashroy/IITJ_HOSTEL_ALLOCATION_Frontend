@@ -10,7 +10,7 @@ const Hostels = () => {
 
   useEffect(() => {
     console.log("Fetching hostels...");
-    axios.get('http://localhost:4000/hostels')
+    axios.get('/hostels')
       .then(response => {
         console.log('Fetched hostels:', response.data);
         setHostels(response.data);
