@@ -18,7 +18,9 @@ const RoomData = () => {
   const [showDeallocationConfirm, setShowDeallocationConfirm] = useState(false);
   const [allocationData, setAllocationData] = useState({
     name: '',
-    rollNo: ''
+    rollNo: '',
+    checkInDate: '',
+    checkOutDate: ''
   });
   const [allocating, setAllocating] = useState(false);
   const [deallocating, setDeallocating] = useState(false);
@@ -126,6 +128,20 @@ const RoomData = () => {
                 <span>{room.rollNo}</span>
               </div>
 
+              {hostelId === '4' && room.checkInDate && (
+                <div className="detail-group">
+                  <label>Check-in Date:</label>
+                  <span>{new Date(room.checkInDate).toLocaleDateString()}</span>
+                </div>
+              )}
+
+              {hostelId === '4' && room.checkOutDate && (
+                <div className="detail-group">
+                  <label>Check-out Date:</label>
+                  <span>{new Date(room.checkOutDate).toLocaleDateString()}</span>
+                </div>
+              )}
+
               {showDeallocationConfirm && (
                 <div className="confirmation-dialog">
                   <p>Are you sure you want to deallocate this room?</p>
@@ -168,6 +184,30 @@ const RoomData = () => {
                   required
                 />
               </div>
+
+              {hostelId === '4' && (
+                <>
+                  <div className="form-group">
+                    <label>Check-in Date:</label>
+                    <input
+                      type="date"
+                      value={allocationData.checkInDate}
+                      onChange={(e) => setAllocationData({...allocationData, checkInDate: e.target.value})}
+                      required
+                    />
+                  </div>
+
+                  <div className="form-group">
+                    <label>Check-out Date:</label>
+                    <input
+                      type="date"
+                      value={allocationData.checkOutDate}
+                      onChange={(e) => setAllocationData({...allocationData, checkOutDate: e.target.value})}
+                      required
+                    />
+                  </div>
+                </>
+              )}
 
               <div className="form-buttons">
                 <button 

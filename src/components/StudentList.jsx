@@ -42,6 +42,12 @@ const StudentList = ({ students }) => {
             <th>Name</th>
             <th>Room Number</th>
             <th>Hostel</th>
+            {students.some(student => student.hostel === '4') && (
+              <>
+                <th>Check-in Date</th>
+                <th>Check-out Date</th>
+              </>
+            )}
             <th>Actions</th>
           </tr>
         </thead>
@@ -52,6 +58,20 @@ const StudentList = ({ students }) => {
               <td>{student.name}</td>
               <td>{student.roomNo}</td>
               <td>{student.hostelName}</td>
+              {students.some(s => s.hostel === '4') && (
+                <>
+                  <td>
+                    {student.hostel === '4' && student.checkInDate 
+                      ? new Date(student.checkInDate).toLocaleDateString() 
+                      : '-'}
+                  </td>
+                  <td>
+                    {student.hostel === '4' && student.checkOutDate 
+                      ? new Date(student.checkOutDate).toLocaleDateString() 
+                      : '-'}
+                  </td>
+                </>
+              )}
               <td>
                 <div className="flex gap-2">
                   <Link 
