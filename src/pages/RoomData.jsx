@@ -185,7 +185,7 @@ const RoomData = () => {
                 />
               </div>
 
-              {hostelId === '4' && (
+              {hostelId === '6727ad67cfce1a32cd0d9e45' && ( // Show date fields only for Hostel 4
                 <>
                   <div className="form-group">
                     <label>Check-in Date:</label>
