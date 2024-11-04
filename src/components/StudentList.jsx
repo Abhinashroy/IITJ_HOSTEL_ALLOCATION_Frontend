@@ -1,11 +1,21 @@
 // src/components/StudentList.jsx
-import React from 'react';
-import { Link } from 'react-router-dom';
+import React, { useContext } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
+import { UserContext } from "../UserContext";
 import '../styles/StudentList.css';
 import axios from 'axios';
 
 const StudentList = ({ students }) => {
+  const { user } = useContext(UserContext);
+  const navigate = useNavigate();
+
   const handleDeallocate = async (hostelId, roomId) => {
+    if (!user) {
+      alert('Please log in to deallocate rooms');
+      navigate('/login');
+      return;
+    }
+
     try {
       await axios.post(`/hostels/${hostelId}/room/${roomId}/deallocate`, {}, {
         withCredentials: true
@@ -14,7 +24,12 @@ const StudentList = ({ students }) => {
       window.location.reload();
     } catch (error) {
       console.error('Failed to deallocate room:', error);
-      alert('Failed to deallocate room. Please ensure you are logged in.');
+      if (error.response?.status === 403) {
+        alert('Please log in to deallocate rooms');
+        navigate('/login');
+      } else {
+        alert('Failed to deallocate room. Please try again.');
+      }
     }
   };
 
@@ -48,8 +63,9 @@ const StudentList = ({ students }) => {
                   <button
                     onClick={() => handleDeallocate(student.hostel, student._id)}
                     className="deallocate-button"
+                    disabled={!user}
                   >
-                    Deallocate
+                    {!user ? 'Login to Deallocate' : 'Deallocate'}
                   </button>
                 </div>
               </td>

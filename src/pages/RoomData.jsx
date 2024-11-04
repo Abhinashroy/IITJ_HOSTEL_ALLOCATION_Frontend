@@ -1,7 +1,8 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import '../styles/RoomData.css';
 import axios from 'axios';
+import { UserContext } from "../UserContext";
 
 const RoomData = () => {
   const { hostelId, roomId } = useParams();
@@ -10,6 +11,7 @@ const RoomData = () => {
   const [error, setError] = useState(null);
   const [isLoggedIn, setIsLoggedIn] = useState(false); // State to track login status
   const navigate = useNavigate();
+  const { user } = useContext(UserContext);
   
   // Add states for allocation form and deallocation
   const [showAllocationForm, setShowAllocationForm] = useState(false);
@@ -55,13 +57,17 @@ const RoomData = () => {
 
   const handleAllocationSubmit = async (e) => {
     e.preventDefault();
-    if (!isLoggedIn) {
-      alert('You need to log in first!');
+    if (!user) {
+      alert('Please log in to allocate rooms');
+      navigate('/login');
       return;
     }
+    
     setAllocating(true);
     try {
-      await axios.post(`/hostels/${hostelId}/room/${roomId}/allocate`, allocationData);
+      await axios.post(`/hostels/${hostelId}/room/${roomId}/allocate`, allocationData, {
+        withCredentials: true
+      });
       await fetchRoomData();
       setShowAllocationForm(false);
     } catch (error) {
@@ -72,9 +78,17 @@ const RoomData = () => {
   };
 
   const handleDeallocation = async () => {
+    if (!user) {
+      alert('Please log in to deallocate rooms');
+      navigate('/login');
+      return;
+    }
+
     setDeallocating(true);
     try {
-      await axios.post(`/hostels/${hostelId}/room/${roomId}/deallocate`);
+      await axios.post(`/hostels/${hostelId}/room/${roomId}/deallocate`, {}, {
+        withCredentials: true
+      });
       await fetchRoomData();
       setShowDeallocationConfirm(false);
     } catch (error) {
@@ -183,17 +197,17 @@ const RoomData = () => {
           {room.status === 'occupied' ? (
             <button 
               className="deallocate-button"
-              onClick={() => setShowDeallocationConfirm(true)}
+              onClick={() => user ? setShowDeallocationConfirm(true) : navigate('/login')}
               disabled={showDeallocationConfirm || deallocating}
             >
-              {deallocating ? 'Deallocating...' : 'Deallocate Room'}
+              {!user ? 'Login to Deallocate' : deallocating ? 'Deallocating...' : 'Deallocate Room'}
             </button>
           ) : !showAllocationForm && (
             <button 
               className="allocate-button"
-              onClick={() => setShowAllocationForm(true)}
+              onClick={() => user ? setShowAllocationForm(true) : navigate('/login')}
             >
-              Allocate Room
+              {!user ? 'Login to Allocate' : 'Allocate Room'}
             </button>
           )}
         </div>
