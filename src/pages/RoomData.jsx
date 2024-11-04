@@ -135,7 +135,7 @@ const RoomData = () => {
                 </div>
               )}
 
-              {hostelId === '4' && room.checkOutDate && (
+              {hostelId === '6727ad67cfce1a32cd0d9e45' && room.checkOutDate && (
                 <div className="detail-group">
                   <label>Check-out Date:</label>
                   <span>{new Date(room.checkOutDate).toLocaleDateString()}</span>
