@@ -67,7 +67,16 @@ const RoomData = () => {
     
     setAllocating(true);
     try {
-      await axios.post(`/hostels/${hostelId}/room/${roomId}/allocate`, allocationData, {
+      const requestData = {
+        name: allocationData.name,
+        rollNo: allocationData.rollNo,
+        ...(hostelId === '6727ad67cfce1a32cd0d9e45' && { // Only include dates for Hostel 4
+          checkInDate: allocationData.checkInDate,
+          checkOutDate: allocationData.checkOutDate
+        })
+      };
+
+      await axios.post(`/hostels/${hostelId}/room/${roomId}/allocate`, requestData, {
         withCredentials: true
       });
       await fetchRoomData();
