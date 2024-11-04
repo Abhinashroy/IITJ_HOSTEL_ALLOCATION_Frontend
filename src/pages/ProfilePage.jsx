@@ -7,6 +7,7 @@ import axios from "axios";
 
 export default function ProfilePage() {
   const [redirect,setRedirect] = useState(null);
+  const [error, setError] = useState(null);
   const {ready,user, setUser} = useContext(UserContext);
   // let {subpage} = useParams();
   // if (subpage === undefined) {
@@ -14,14 +15,23 @@ export default function ProfilePage() {
   // }
 
   async function logout() {
-    localStorage.clear()
-    await axios.post('/logout');
-    setRedirect('/');
-    setUser(null);
+    try {
+      await axios.post('/logout', {}, {
+        withCredentials: true
+      });
+      setUser(null);
+      setRedirect('/');
+    } catch (err) {
+      setError('Failed to logout');
+    }
   }
 
   if (!ready) {
-    return 'Loading...';
+    return <div className="text-center pt-28">Loading...</div>;
+  }
+
+  if (error) {
+    return <div className="text-center pt-28 text-red-500">{error}</div>;
   }
 
   if (ready && !user && !redirect) {

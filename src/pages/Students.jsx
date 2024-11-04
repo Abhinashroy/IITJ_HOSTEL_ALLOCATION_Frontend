@@ -15,19 +15,21 @@ const Students = () => {
 
   const fetchStudents = async () => {
     try {
-      // Fetch all rooms that are occupied
-      const response = await axios.get('/rooms/occupied');
+      const response = await axios.get('/rooms/occupied', {
+        withCredentials: true
+      });
       setStudents(response.data);
       setLoading(false);
     } catch (error) {
       console.error('Error fetching students:', error);
-      setError('Failed to load students');
+      setError(error.response?.data?.error || 'Failed to load students');
       setLoading(false);
     }
   };
 
   const filteredStudents = students.filter(student => 
-    student.rollNo.toLowerCase().includes(searchRollNo.toLowerCase())
+    student.rollNo.toLowerCase().includes(searchRollNo.toLowerCase()) ||
+    student.name.toLowerCase().includes(searchRollNo.toLowerCase())
   );
 
   if (loading) return <div className="students-container">Loading...</div>;
