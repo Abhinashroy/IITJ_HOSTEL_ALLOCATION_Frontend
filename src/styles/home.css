@@ -1,10 +1,36 @@
-/* src/styles/home.css */
+/* Add overflow hidden to html and body */
+html, body {
+  overflow: hidden;
+  margin: 0; /* Ensure no default margin */
+  padding: 0;
+}
 
 .home-container {
-  @apply min-h-screen flex flex-col justify-center items-center text-center bg-cover bg-center;
-  background-image: url('/IITJ_COLOURED.png'); /* Reference the image directly from the public folder */
-  background-size: cover; /* Ensure the background image covers the container */
-  position: relative; /* Ensure positioning for the overlay */
+  @apply min-h-screen flex flex-col justify-center items-center text-center bg-white;
+  position: relative;
+}
+
+.home-container::before {
+  content: "";
+  background-image: url('/IITJ_COLOURED.png'); /* Reference the logo image */
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 90vh; /* Increase size relative to viewport height */
+  opacity: 0.2; /* Set the transparency for the logo */
+  position: absolute;
+  top: 0; /* Lift the image from the bottom by adjusting top */
+  left: 0;
+  right: 0;
+  bottom: 10vh;
+  z-index: 0;
+  contain: layout; /* Prevents the pseudo-element from causing overflow */
+}
+
+
+.home-container h1,
+.home-container p {
+  position: relative;
+  z-index: 1;
 }
 
 .home-container h1 {
@@ -13,8 +39,4 @@
 
 .home-container p {
   @apply text-2xl text-black max-w-lg mb-16;
-}
-
-.overlay {
-  @apply absolute inset-0 bg-black opacity-50; /* Ensure the overlay class does not get the .home-container prefix */
 }
