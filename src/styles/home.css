@@ -1,19 +1,20 @@
 /* src/styles/home.css */
 
 .home-container {
-    @apply min-h-screen flex flex-col justify-center items-center text-center bg-cover bg-center;
-    background-image: url('IITJ-Hostel\src\assets\colorful-creative-design-4k-ye.jpg'); 
-  }
-  
-  .home-container h1 {
-    @apply text-4xl font-bold text-black mb-4;
-  }
-  
-  .home-container p {
-    @apply text-2xl text-black max-w-lg mb-16;
-  }
-  
-  .home-container.overlay {
-    @apply absolute inset-0 bg-black opacity-50;
-  }
-  
+  @apply min-h-screen flex flex-col justify-center items-center text-center bg-cover bg-center;
+  background-image: url('/IITJ_COLOURED.png'); /* Reference the image directly from the public folder */
+  background-size: cover; /* Ensure the background image covers the container */
+  position: relative; /* Ensure positioning for the overlay */
+}
+
+.home-container h1 {
+  @apply text-4xl font-bold text-black mb-4;
+}
+
+.home-container p {
+  @apply text-2xl text-black max-w-lg mb-16;
+}
+
+.overlay {
+  @apply absolute inset-0 bg-black opacity-50; /* Ensure the overlay class does not get the .home-container prefix */
+}
