@@ -21,7 +21,19 @@ const Students = () => {
       setLoading(false);
     } catch (error) {
       console.error('Error fetching students:', error);
-      setError('Failed to load students');
+      // Log detailed error information
+      if (error.response) {
+        console.error('Response data:', error.response.data);
+        console.error('Response status:', error.response.status);
+        console.error('Response headers:', error.response.headers);
+        setError('Failed to load students: ' + (error.response.data.message || 'Unknown error'));
+      } else if (error.request) {
+        console.error('Request data:', error.request);
+        setError('Failed to load students: No response from server');
+      } else {
+        console.error('Error message:', error.message);
+        setError('Failed to load students: ' + error.message);
+      }
       setLoading(false);
     }
   };
