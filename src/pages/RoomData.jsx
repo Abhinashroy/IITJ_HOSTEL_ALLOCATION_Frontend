@@ -128,14 +128,14 @@ const RoomData = () => {
                 <span>{room.rollNo}</span>
               </div>
 
-              {hostel.name === 'Hostel 4' && room.checkInDate && (
+              {hostelId === '4' && room.checkInDate && (
                 <div className="detail-group">
                   <label>Check-in Date:</label>
                   <span>{new Date(room.checkInDate).toLocaleDateString()}</span>
                 </div>
               )}
 
-              {hostel.name === 'Hostel 4' && room.checkOutDate && (
+              {hostelId === '4' && room.checkOutDate && (
                 <div className="detail-group">
                   <label>Check-out Date:</label>
                   <span>{new Date(room.checkOutDate).toLocaleDateString()}</span>
@@ -185,7 +185,7 @@ const RoomData = () => {
                 />
               </div>
 
-              {hostel.name === 'Hostel 4' && (
+              {hostelId === '4' && (
                 <>
                   <div className="form-group">
                     <label>Check-in Date:</label>

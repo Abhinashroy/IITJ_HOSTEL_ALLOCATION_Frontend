@@ -42,7 +42,7 @@ const StudentList = ({ students }) => {
             <th>Name</th>
             <th>Room Number</th>
             <th>Hostel</th>
-            {students.some(student => student.hostel.name === 'Hostel 4') && (
+            {students.some(student => student.hostel === '4') && (
               <>
                 <th>Check-in Date</th>
                 <th>Check-out Date</th>
@@ -61,12 +61,12 @@ const StudentList = ({ students }) => {
               {students.some(s => s.hostel === '4') && (
                 <>
                   <td>
-                    {student.hostel.name === 'Hostel 4' && student.checkInDate 
+                    {student.hostel === '4' && student.checkInDate 
                       ? new Date(student.checkInDate).toLocaleDateString() 
                       : '-'}
                   </td>
                   <td>
-                    {student.hostel.name === 'Hostel 4' && student.checkOutDate 
+                    {student.hostel === '4' && student.checkOutDate 
                       ? new Date(student.checkOutDate).toLocaleDateString() 
                       : '-'}
                   </td>
