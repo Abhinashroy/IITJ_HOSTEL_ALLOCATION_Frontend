@@ -15,25 +15,59 @@ const Students = () => {
 
   const fetchStudents = async () => {
     try {
+      setLoading(true);
+      setError(null);
       const response = await axios.get('/rooms/occupied', {
         withCredentials: true
       });
-      setStudents(response.data);
-      setLoading(false);
+      
+      if (response.data && Array.isArray(response.data)) {
+        setStudents(response.data);
+      } else {
+        throw new Error('Invalid data received from server');
+      }
     } catch (error) {
       console.error('Error fetching students:', error);
-      setError(error.response?.data?.error || 'Failed to load students');
+      setError(
+        error.response?.data?.error || 
+        error.response?.data?.details || 
+        error.message || 
+        'Failed to load students'
+      );
+    } finally {
       setLoading(false);
     }
   };
 
   const filteredStudents = students.filter(student => 
-    student.rollNo.toLowerCase().includes(searchRollNo.toLowerCase()) ||
-    student.name.toLowerCase().includes(searchRollNo.toLowerCase())
+    (student.rollNo?.toLowerCase() || '').includes(searchRollNo.toLowerCase()) ||
+    (student.name?.toLowerCase() || '').includes(searchRollNo.toLowerCase())
   );
 
-  if (loading) return <div className="students-container">Loading...</div>;
-  if (error) return <div className="students-container error">{error}</div>;
+  if (loading) {
+    return (
+      <div className="students-container">
+        <div className="loading-spinner">Loading students...</div>
+      </div>
+    );
+  }
+
+  if (error) {
+    return (
+      <div className="students-container">
+        <div className="error-message">
+          <h3>Error Loading Students</h3>
+          <p>{error}</p>
+          <button 
+            onClick={fetchStudents}
+            className="retry-button"
+          >
+            Retry
+          </button>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="students-container">
@@ -42,7 +76,7 @@ const Students = () => {
       <div className="search-container">
         <input
           type="text"
-          placeholder="Search by Roll Number..."
+          placeholder="Search by Roll Number or Name..."
           value={searchRollNo}
           onChange={(e) => setSearchRollNo(e.target.value)}
           className="search-input"
