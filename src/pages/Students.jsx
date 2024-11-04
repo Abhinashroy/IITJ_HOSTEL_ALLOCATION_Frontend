@@ -22,6 +22,7 @@ const Students = () => {
       });
       
       if (response.data && Array.isArray(response.data)) {
+        console.log('Received students:', response.data);
         setStudents(response.data);
       } else {
         throw new Error('Invalid data received from server');
@@ -39,10 +40,14 @@ const Students = () => {
     }
   };
 
-  const filteredStudents = students.filter(student => 
-    (student.rollNo?.toLowerCase() || '').includes(searchRollNo.toLowerCase()) ||
-    (student.name?.toLowerCase() || '').includes(searchRollNo.toLowerCase())
-  );
+  const filteredStudents = students.filter(student => {
+    const searchTerm = searchRollNo.toLowerCase().trim();
+    const studentRollNo = (student.rollNo || '').toLowerCase();
+    const studentName = (student.name || '').toLowerCase();
+    
+    return studentRollNo.includes(searchTerm) || 
+           studentName.includes(searchTerm);
+  });
 
   if (loading) {
     return (
