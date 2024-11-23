@@ -27,9 +27,14 @@ const RoomGrid = () => {
         // Fetch rooms
         const roomsResponse = await axios.get(`/hostels/${hostelId}/rooms`);
         console.log('Rooms response:', roomsResponse.data);
-        setRooms(roomsResponse.data);
-        setFilteredRooms(roomsResponse.data);
 
+        // Sort rooms by roomNo in ascending order
+        const sortedRooms = roomsResponse.data.sort((a, b) => {
+          return a.roomNo - b.roomNo; // Assuming roomNo is a number
+        });
+
+        setRooms(sortedRooms);
+        setFilteredRooms(sortedRooms);
       } catch (err) {
         console.error('Error fetching data:', err);
         setError(err.response?.data?.error || 'Failed to load data');
