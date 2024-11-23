@@ -1,6 +1,5 @@
-/* Add overflow hidden to html and body */
 html, body {
-  overflow: hidden;
+  /* overflow: hidden; */
   margin: 0; /* Ensure no default margin */
   padding: 0;
 }
