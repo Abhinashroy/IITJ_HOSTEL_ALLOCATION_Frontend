@@ -15,32 +15,25 @@ const Students = () => {
 
   const fetchStudents = async () => {
     try {
-      // Fetch all rooms that are occupied
       const response = await axios.get('/rooms/occupied');
       setStudents(response.data);
       setLoading(false);
     } catch (error) {
       console.error('Error fetching students:', error);
-      // Log detailed error information
-      if (error.response) {
-        console.error('Response data:', error.response.data);
-        console.error('Response status:', error.response.status);
-        console.error('Response headers:', error.response.headers);
-        setError('Failed to load students: ' + (error.response.data.message || 'Unknown error'));
-      } else if (error.request) {
-        console.error('Request data:', error.request);
-        setError('Failed to load students: No response from server');
-      } else {
-        console.error('Error message:', error.message);
-        setError('Failed to load students: ' + error.message);
-      }
+      setError('Failed to load students: ' + (error.response?.data?.error || 'Unknown error'));
       setLoading(false);
     }
   };
 
-  const filteredStudents = students.filter(student => 
-    student.rollNo.toLowerCase().includes(searchRollNo.toLowerCase())
-  );
+  // Function to filter students based on the search input
+  const filterStudents = (students, searchTerm) => {
+    if (!searchTerm) return students; // If no search term, return all students
+    return students.filter(student =>
+      student.rollNo.toLowerCase().includes(searchTerm.toLowerCase())
+    );
+  };
+
+  const filteredStudents = filterStudents(students, searchRollNo);
 
   if (loading) return <div className="students-container">Loading...</div>;
   if (error) return <div className="students-container error">{error}</div>;
