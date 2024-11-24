@@ -14,8 +14,9 @@ import axios from 'axios';
 import {UserContextProvider} from "./UserContext.jsx";
 import ProfilePage from './pages/ProfilePage.jsx';
 import RoomData from './pages/RoomData.jsx';
+// 'http://localhost:4000';
+axios.defaults.baseURL =  "https://iitj-hostel-allocation-backend.vercel.app";
 
-axios.defaults.baseURL = "https://iitj-hostel-allocation-backend.vercel.app"// 'http://localhost:4000';
 axios.defaults.withCredentials=true;
 
 function App() {

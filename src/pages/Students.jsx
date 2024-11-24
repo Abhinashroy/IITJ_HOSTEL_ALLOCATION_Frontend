@@ -17,8 +17,16 @@ const Students = () => {
     try {
       // Fetch all rooms that are occupied
       const response = await axios.get('/rooms/occupied');
-      setStudents(response.data);
       setLoading(false);
+      console.log("test")
+      console.log(response.data);
+      if(response.error){
+        setError(response.error);
+      }
+      else{
+        setStudents(response.data);
+      }
+
     } catch (error) {
       console.error('Error fetching students:', error);
       setError('Failed to load students');
