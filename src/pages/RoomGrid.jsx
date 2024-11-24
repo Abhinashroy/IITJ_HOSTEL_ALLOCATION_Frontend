@@ -1,14 +1,14 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import RoomFilter from '../components/RoomFilter';
-import { useUserContext } from '../UserContext'; // Import the UserContext
+import { UserContext } from '../UserContext'; // Import the UserContext
 import '../styles/RoomGrid.css';
 
 const RoomGrid = () => {
   const { id: hostelId } = useParams();
   const navigate = useNavigate();
-  const { isLoggedIn } = useUserContext(); // Access isLoggedIn from context
+  const { isLoggedIn } = useContext(UserContext); // Access isLoggedIn from context
   const [hostel, setHostel] = useState(null);
   const [rooms, setRooms] = useState([]);
   const [filteredRooms, setFilteredRooms] = useState([]);
