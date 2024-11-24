@@ -51,7 +51,16 @@ const RoomGrid = () => {
     };
 
     fetchData();
-  }, [hostelId, isLoggedIn]);
+  }, [hostelId]);
+
+  useEffect(() => {
+    // Update filteredRooms when login status changes
+    if (isLoggedIn) {
+      setFilteredRooms(rooms); // Show all rooms if logged in
+    } else {
+      setFilteredRooms(rooms.filter(room => room.status === 'available')); // Show only available rooms if not logged in
+    }
+  }, [isLoggedIn, rooms]);
 
   const handleRoomClick = (roomId) => {
     navigate(`/hostels/${hostelId}/room/${roomId}`);
