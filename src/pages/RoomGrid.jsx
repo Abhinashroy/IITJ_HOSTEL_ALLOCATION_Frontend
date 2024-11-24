@@ -68,6 +68,11 @@ const RoomGrid = () => {
     navigate(`/hostels/${hostelId}/room/${roomId}`);
   };
 
+  const handleLogin = () => {
+    // Logic to handle user login
+    setIsLoggedIn(true); // Set login status to true
+  };
+
   const handleFilterChange = (filterType) => {
     if (!isLoggedIn) {
       setFilteredRooms(rooms.filter(room => room.status === 'available'));
