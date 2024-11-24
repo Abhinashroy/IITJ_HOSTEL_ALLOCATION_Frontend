@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useParams, useNavigate } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import axios from 'axios';
 import RoomFilter from '../components/RoomFilter';
 import '../styles/RoomGrid.css';
@@ -12,7 +12,12 @@ const RoomGrid = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const navigate = useNavigate();
+
+  useEffect(() => {
+    // Check if the user is logged in by looking for a token
+    const token = localStorage.getItem('authToken'); // Adjust based on your auth logic
+    setIsLoggedIn(!!token); // Set isLoggedIn based on the presence of a token
+  }, []); // Run once on component mount
 
   useEffect(() => {
     const fetchData = async () => {
@@ -51,11 +56,11 @@ const RoomGrid = () => {
     };
 
     fetchData();
-  }, [hostelId]);
+  }, [hostelId, isLoggedIn]); // Add isLoggedIn to the dependency array
 
   useEffect(() => {
     // Update filteredRooms when login status changes
-    if (rooms.length > 0) {
+    if (rooms.length > 0) { // Ensure rooms are loaded before updating filteredRooms
       if (isLoggedIn) {
         setFilteredRooms(rooms); // Show all rooms if logged in
       } else {
@@ -75,7 +80,7 @@ const RoomGrid = () => {
 
   const handleFilterChange = (filterType) => {
     if (!isLoggedIn) {
-      setFilteredRooms(rooms.filter(room => room.status === 'available'));
+      setFilteredRooms(rooms.filter(room => room.status === 'available')); // Show only available rooms if not logged in
       return;
     }
     
@@ -116,7 +121,7 @@ const RoomGrid = () => {
     <div className="room-grid-container">
       <h2 className="font-bold text-3xl mb-6">Rooms in {hostel.name}</h2>
       
-      {/* Add stats section */}
+      {/* Stats section */}
       <div className="stats-container mb-6">
         <div className="stats-box">
           <span>Total Rooms: {rooms.length}</span>
@@ -124,12 +129,6 @@ const RoomGrid = () => {
           <span>Occupied: {rooms.filter(room => room.status === 'occupied').length}</span>
         </div>
       </div>
-
-      {!isLoggedIn && (
-        <div className="login-container">
-          <button onClick={handleLogin}>Login</button>
-        </div>
-      )}
 
       <RoomFilter onFilterChange={handleFilterChange} />
       <div className="rooms-grid">
