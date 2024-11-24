@@ -125,6 +125,12 @@ const RoomGrid = () => {
         </div>
       </div>
 
+      {!isLoggedIn && (
+        <div className="login-container">
+          <button onClick={handleLogin}>Login</button>
+        </div>
+      )}
+
       <RoomFilter onFilterChange={handleFilterChange} />
       <div className="rooms-grid">
         {filteredRooms.length === 0 ? (
