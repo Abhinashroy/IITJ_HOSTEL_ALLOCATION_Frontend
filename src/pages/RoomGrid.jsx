@@ -35,7 +35,13 @@ const RoomGrid = () => {
         });
 
         setRooms(sortedRooms);
-        setFilteredRooms(sortedRooms);
+        
+        // Set filteredRooms based on login status
+        if (!isLoggedIn) {
+          setFilteredRooms(sortedRooms.filter(room => room.status === 'available')); // Show only available rooms if not logged in
+        } else {
+          setFilteredRooms(sortedRooms); // Show all rooms if logged in
+        }
       } catch (err) {
         console.error('Error fetching data:', err);
         setError(err.response?.data?.error || 'Failed to load data');
@@ -45,7 +51,7 @@ const RoomGrid = () => {
     };
 
     fetchData();
-  }, [hostelId]);
+  }, [hostelId, isLoggedIn]);
 
   const handleRoomClick = (roomId) => {
     navigate(`/hostels/${hostelId}/room/${roomId}`);
