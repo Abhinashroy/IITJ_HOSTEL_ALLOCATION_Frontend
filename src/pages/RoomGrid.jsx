@@ -1,23 +1,19 @@
 import React, { useState, useEffect } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import RoomFilter from '../components/RoomFilter';
+import { useUserContext } from '../UserContext'; // Import the UserContext
 import '../styles/RoomGrid.css';
 
 const RoomGrid = () => {
   const { id: hostelId } = useParams();
+  const navigate = useNavigate();
+  const { isLoggedIn } = useUserContext(); // Access isLoggedIn from context
   const [hostel, setHostel] = useState(null);
   const [rooms, setRooms] = useState([]);
   const [filteredRooms, setFilteredRooms] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
-
-  useEffect(() => {
-    // Check if the user is logged in by looking for a token
-    const token = localStorage.getItem('authToken'); // Adjust based on your auth logic
-    setIsLoggedIn(!!token); // Set isLoggedIn based on the presence of a token
-  }, []); // Run once on component mount
 
   useEffect(() => {
     const fetchData = async () => {
@@ -71,11 +67,6 @@ const RoomGrid = () => {
 
   const handleRoomClick = (roomId) => {
     navigate(`/hostels/${hostelId}/room/${roomId}`);
-  };
-
-  const handleLogin = () => {
-    // Logic to handle user login
-    setIsLoggedIn(true); // Set login status to true
   };
 
   const handleFilterChange = (filterType) => {

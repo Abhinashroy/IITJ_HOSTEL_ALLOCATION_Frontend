@@ -1,4 +1,4 @@
-import {createContext, useEffect, useState} from "react";
+import {createContext, useEffect, useState, useContext} from "react";
 import axios from "axios";
 import {data} from "autoprefixer";
 
@@ -7,6 +7,7 @@ export const UserContext = createContext({});
 export function UserContextProvider({children}) {
   const [user,setUser] = useState(null);
   const [ready,setReady] = useState(false);
+
   useEffect(() => {
     if (!user) {
       axios.get('/profile').then(({data}) => {
@@ -15,8 +16,11 @@ export function UserContextProvider({children}) {
       });
     }
   }, []);
+
+  const isLoggedIn = !!user; 
+
   return (
-    <UserContext.Provider value={{user,setUser,ready}}>
+    <UserContext.Provider value={{user,setUser,ready, isLoggedIn}}>
       {children}
     </UserContext.Provider>
   );
