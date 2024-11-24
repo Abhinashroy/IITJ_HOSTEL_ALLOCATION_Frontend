@@ -55,10 +55,12 @@ const RoomGrid = () => {
 
   useEffect(() => {
     // Update filteredRooms when login status changes
-    if (isLoggedIn) {
-      setFilteredRooms(rooms); // Show all rooms if logged in
-    } else {
-      setFilteredRooms(rooms.filter(room => room.status === 'available')); // Show only available rooms if not logged in
+    if (rooms.length > 0) {
+      if (isLoggedIn) {
+        setFilteredRooms(rooms); // Show all rooms if logged in
+      } else {
+        setFilteredRooms(rooms.filter(room => room.status === 'available')); // Show only available rooms if not logged in
+      }
     }
   }, [isLoggedIn, rooms]);
 
