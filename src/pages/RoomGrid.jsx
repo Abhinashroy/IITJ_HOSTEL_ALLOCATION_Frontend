@@ -11,6 +11,7 @@ const RoomGrid = () => {
   const [filteredRooms, setFilteredRooms] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -51,6 +52,11 @@ const RoomGrid = () => {
   };
 
   const handleFilterChange = (filterType) => {
+    if (!isLoggedIn) {
+      setFilteredRooms(rooms.filter(room => room.status === 'available'));
+      return;
+    }
+    
     if (filterType === 'all') {
       setFilteredRooms(rooms);
     } else if (filterType === 'occupied') {
