@@ -37,6 +37,7 @@ export default function LoginPage() {
       )
       .catch(
         error => {
+          alert('Login unsuccessful');
           console.log(error);
         }
       )
