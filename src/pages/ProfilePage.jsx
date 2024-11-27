@@ -2,7 +2,7 @@ import {useContext, useState} from "react";
 import {UserContext} from "../UserContext";
 import {Link, Navigate, useParams} from "react-router-dom";
 import axios from "axios";
-import UploadCSV from "../components/UploadCSV";
+// import UploadCSV from "../components/UploadCSV";
 
 export default function ProfilePage() {
   const [redirect,setRedirect] = useState(null);
@@ -23,22 +23,22 @@ export default function ProfilePage() {
     }
   }
 
-  const handleDeleteRooms = async () => {
-    if (!hostelId) {
-      setDeleteMessage('Please enter a hostel ID.');
-      return;
-    }
+  // const handleDeleteRooms = async () => {
+  //   if (!hostelId) {
+  //     setDeleteMessage('Please enter a hostel ID.');
+  //     return;
+  //   }
 
-    try {
-      const response = await axios.delete(`http://localhost:4000/delete-rooms/${hostelId}`, {
-        withCredentials: true,
-      });
-      setDeleteMessage(response.data.message);
-    } catch (error) {
-      console.error('Error deleting rooms:', error);
-      setDeleteMessage('Error deleting rooms');
-    }
-  };
+  //   try {
+  //     const response = await axios.delete(`http://localhost:4000/delete-rooms/${hostelId}`, {
+  //       withCredentials: true,
+  //     });
+  //     setDeleteMessage(response.data.message);
+  //   } catch (error) {
+  //     console.error('Error deleting rooms:', error);
+  //     setDeleteMessage('Error deleting rooms');
+  //   }
+  // };
 
   if (!ready) {
     return <div className="text-center pt-28">Loading...</div>;
@@ -69,11 +69,11 @@ export default function ProfilePage() {
       </div>
       <button onClick={logout} className="primary max-w-sm mt-1">Logout</button>
 
-      <div className="pt-4">
+      {/* <div className="pt-4">
         <UploadCSV />
-      </div>
+      </div> */}
 
-      <div className="text-center max-w-lg mx-auto pt-4">
+      {/* <div className="text-center max-w-lg mx-auto pt-4">
         <input
           type="text"
           placeholder="Enter Hostel ID"
@@ -83,7 +83,7 @@ export default function ProfilePage() {
         />
         <button onClick={handleDeleteRooms} className="primary max-w-sm mt-2">Delete All Rooms</button>
         {deleteMessage && <p>{deleteMessage}</p>}
-      </div>
+      </div> */}
     </div>
   );
 }
