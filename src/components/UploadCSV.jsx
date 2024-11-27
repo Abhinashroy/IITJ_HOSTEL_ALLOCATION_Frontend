@@ -18,8 +18,9 @@ const UploadCSV = () => {
 
     const formData = new FormData();
     formData.append('file', file);
-
+    setMessage('Rooms started adding...');
     try {
+      
       const response = await axios.post('http://localhost:4000/upload-csv', formData, {
         headers: {
           'Content-Type': 'multipart/form-data',
