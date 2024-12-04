@@ -7,6 +7,7 @@ html, body {
 .home-container {
   @apply min-h-screen flex flex-col justify-center items-center text-center bg-white;
   position: relative;
+  padding-bottom: 50px; /* Add padding to avoid overlap with footer */
 }
 
 .home-container::before {
@@ -38,4 +39,21 @@ html, body {
 
 .home-container p {
   @apply text-2xl text-black max-w-lg mb-16;
+}
+
+.footer {
+  position: fixed; /* Keep it fixed at the bottom */
+  bottom: 0; /* Position at the bottom */
+  left: 0;
+  right: 0;
+  display: flex;
+  justify-content: center; /* Center the notice */
+  padding: 10px 20px; /* Add some padding */
+  background-color: white; /* Optional: Add background color for visibility */
+  z-index: 1; /* Ensure it is above the background */
+}
+
+.demo-notice p {
+  font-size: 12px; /* Adjust font size to make it smaller */
+  margin: 0; /* Remove default margin */
 }

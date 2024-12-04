@@ -8,6 +8,11 @@ const Home = () => {
       <div className="overlay"></div>
       <h1>Welcome to the Hostel Management System</h1>
       <p>Manage your college hostel rooms efficiently.</p>
+      <div className="footer">
+        <div className="demo-notice">
+          <p>This is a demo site with generated data. Real site will be updated on ERP IITJ.</p>
+        </div>
+      </div>
     </div>
   );
 };
